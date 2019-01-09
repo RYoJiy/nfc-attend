@@ -18,9 +18,9 @@ def create_message(id):
   # タッチした時刻を取得する
   now = time.ctime()
   # csv 形式?
-  #return now + ', ' id
+  return now+','+id
   # json 形式?
-  return '{ \"time\" : \"'+now+'\", \"uId\" : \"'+id+'\" }'
+  #return '{ \"time\" : \"'+now+'\", \"uId\" : \"'+id+'\" }'
 
 # write_message
 ## file に message を書き込む
