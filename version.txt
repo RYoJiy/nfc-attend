@@ -1,2 +1,0 @@
-Python 3.5.5
-pip 18.1 from /Users/daisuke2/.pyenv/versions/3.5.5/lib/python3.5/site-packages/pip (python 3.5)
