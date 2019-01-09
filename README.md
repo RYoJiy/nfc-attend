@@ -1,4 +1,3 @@
-
 # NFCを用いて学籍番号を抽出する
 
 ### 概要
@@ -86,3 +85,18 @@ Traceback (most recent call last):
     raise IOError(errno.ENODEV, os.strerror(errno.ENODEV))
 IOError: [Errno 19] Operation not supported by device
 ```
+
+### 参考にしました
+
+[[PASMO] FeliCa から情報を吸い出してみる - FeliCaの仕様編 [Android][Kotlin] - qiita
+](https://qiita.com/YasuakiNakazawa/items/3109df682af2a7032f8d)
+
+[nfc.tag Module Reference](https://nfcpy.readthedocs.io/en/latest/modules/tag.html#module-nfc.tag.tt3)
+
+[nfcpy 0.13.4でNFCのIDを読む - qiita](https://qiita.com/NoTASK/items/c2e1e3803cdb2a93bec7)
+
+[PaSoRiを使ってpythonでNFCタグを読み書きする - qiita](https://qiita.com/alt-core/items/abc83b3c1e2dd176717f)
+
+[Pythonでの正規表現の使い方 - qiita](https://qiita.com/wanwanland/items/ce272419dde2f95cdabc)
+
+
