@@ -12,9 +12,19 @@ import nfc
 import re
 import time
 
-# message_write
-## 書き込み
-def message_write(sttr):
+# create_message
+## message を作成する
+def create_message(id):
+  # タッチした時刻を取得する
+  now = time.ctime()
+  # csv 形式?
+  #return now + ', ' id
+  # json 形式?
+  return '{ \"time\" : \"'+now+'\", \"uId\" : \"'+id+'\" }'
+
+# write_message
+## file に message を書き込む
+def write_message(sttr):
   f = open('attend.txt', 'a')
   f.write(sttr + "\n")
   f.close()
@@ -30,17 +40,25 @@ def on_startup(target):
 # on_connect
 ## felicaにタッチした時に発火
 def on_connected(tag):
-  for line in tag.dump(): 
+  for line in tag.dump():
+    # パターン
     pattern = r"0000: 30"
+    # 正規表現
     matchLine = re.search(pattern, line)
+    # パターンにマッチしたら...
     if matchLine:
-      uId = line.split('|')      
-      message = '{ \"time\" : \"' + time.ctime() + '\", \"uId\" : \"' + uId[1][4:14] + '\" }'
-      message_write(message)
-      print "学籍番号 : " + uId[1][4:14] + " の出席を確認しました！"
+      # 学籍番号の場所(推定...)
+      uId = line.split('|')
+      # 学籍番号をファイルに書き込み
+      write_message(create_message(uId[1][4:14]))
+      # 確認用 print 
+      print '学籍番号 : '+uId[1][4:14]+' の出席を確認しました。'
+      #重複している行もあるのでbreakして抜ける
       break
 
+  # 連続で書き込むのを防ぐために sleep (この方法で良い??)
   time.sleep(2)
+  # 再表示 print
   print('学生証をかざしてください：')
 
 # on-release
@@ -48,7 +66,7 @@ def on_connected(tag):
 def on_released(tag):
   #print(tag)
   print('学生証をかざしてください：')
-
+  
   time.sleep(2)
   
 # main
