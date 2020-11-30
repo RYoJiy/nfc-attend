@@ -11,6 +11,13 @@ sys.path.append("/usr/local/lib/python2.7/site-packages")
 import nfc
 import re
 import time
+import json
+
+import requests
+
+def register_uid(uid):
+	res = requests.post('https://sample/json',json.dumps({'id': uid}), headers={'Content-Type': 'application/json'})
+	print res.json()
 
 # create_message
 ## message を作成する
@@ -51,8 +58,10 @@ def on_connected(tag):
       uId = line.split('|')
       # 学籍番号をファイルに書き込み
       write_message(create_message(uId[1][4:14]))
+      uid = uId[1][4:14]
       # 確認用 print 
       print '学籍番号 : '+uId[1][4:14]+' の出席を確認しました。'
+      register_uid(uid)
       #重複している行もあるのでbreakして抜ける
       break
 
@@ -85,9 +94,11 @@ def main():
 
   print "学生証をかざしてください："
 
-  if clf:
-    while clf.connect(rdwr=rdwr_options):
-      pass
+  if clf is None:
+    return
+
+  while True:
+      clf.connect(rdwr=rdwr_options)
 
 if __name__ == '__main__':
   main()
